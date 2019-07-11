@@ -1,22 +1,62 @@
-#include <iostream>
-#include <fstream>
-#include <string>
+#include <iostream> 
+#include <fstream> 
+#include <string> 
 using namespace std;
 
-int main()
+void outF()
 {
-    string s1, s2;
-    ifstream fin("main.cpp");
-    ofstream fout;
+    char q = 34;
+    char c = 44;
+    string s []= {"#include <iostream>",
+                  "#include <fstream>",
+                  "#include <string>",
+                  "using namespace std;",
+                  "void outF(){",
+                  "char q = 34;",
+                  "char c = 44;",
+                  "string s []={",
+                  "};",
+                  "ofstream f;",
+                  "f.open(text/test);",
+                  "for (int i = 0; i < 8; i++) {",
+                  "f << s[i] << endl;",
+                  "}",
+                  "for (string a : s) {",
+                  "f << q << a << q << c << endl;",
+                  "}",
+                  "s[10].insert(7, 1, q);",
+                  "s[10].insert(16, 1, q);",
+                  "for (int i = 8; i < 28; i++) {",
+                  "f << s[i] << endl;",
+                  "}",
+                  "f.close();",
+                  "}",
+                  "int main(){",
+                  "outF();",
+                  "return 0;",
+                  "}"};
+               
+    ofstream f;
 
-    while (fin >> s1) {
-        s2 += s1;
+    f.open("text/test");
+    for (int i = 0; i < 8; i++) {
+        f << s[i] << endl;
     }
-    for (int i = 0; i < 100; i++) {
-        s1 = "text/test" + to_string(i) + ".txt";
-        fout.open(s1);
-        fout << s2;
-        fout.close();
+    for (string a : s) {
+        f << q << a << q << c << endl;
     }
+    s[10].insert(7, 1, q);
+    s[10].insert(17, 1, q);
+    for (int i = 8; i < 28; i++) {
+        f << s[i] << endl;
+
+    }
+    f.close();
+}
+
+int main() 
+{
+    outF();
     return 0;
 }
+
