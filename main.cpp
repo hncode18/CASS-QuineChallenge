@@ -1,62 +1,65 @@
 #include <iostream> 
 #include <fstream> 
 #include <string> 
+#include <thread>
 using namespace std;
 
-void outF()
+void outF(string n)
 {
     char q = 34;
     char c = 44;
     string s []= {"#include <iostream>",
                   "#include <fstream>",
                   "#include <string>",
+                  "#include <thread>",
                   "using namespace std;",
-                  "void outF(){",
-                  "char q = 34;",
-                  "char c = 44;",
+                  "void outF(string n){",
+                  "char q = 34; char c = 44;",
                   "string s []={",
                   "};",
-                  "ofstream f;",
-                  "f.open(text/test);",
-                  "for (int i = 0; i < 8; i++) {",
-                  "f << s[i] << endl;",
-                  "}",
-                  "for (string a : s) {",
-                  "f << q << a << q << c << endl;",
-                  "}",
-                  "s[10].insert(7, 1, q);",
-                  "s[10].insert(16, 1, q);",
-                  "for (int i = 8; i < 28; i++) {",
-                  "f << s[i] << endl;",
-                  "}",
-                  "f.close();",
-                  "}",
+                  "ofstream f(text/test + n);",
+                  "for (int i = 0; i < 8; i++) { f << s[i] << endl; }",
+                  "for (string a : s) { f << q << a << q << c << endl; }",
+                  "s[9].insert(11, 1, q); s[9].insert(21, 1, q);",
+                  "for (int i = 8; i < 23; i++) { f << s[i] << endl; } }",
+                  "void loop(char j){ for (int i = 0; i < 187500; i++) { outF(j + to_string(i)); } }",
                   "int main(){",
-                  "outF();",
-                  "return 0;",
-                  "}"};
+                  "loop(100);",
+                  "thread t1(loop, 97); thread t2(loop, 98); thread t3(loop, 99);",
+                  "t1.join(); t2.join(); t3.join();",
+                  "return 0;}"};
                
-    ofstream f;
+    ofstream f("text/test" + n);
 
-    f.open("text/test");
     for (int i = 0; i < 8; i++) {
         f << s[i] << endl;
     }
     for (string a : s) {
         f << q << a << q << c << endl;
     }
-    s[10].insert(7, 1, q);
-    s[10].insert(17, 1, q);
-    for (int i = 8; i < 28; i++) {
+    s[9].insert(11, 1, q);
+    s[9].insert(21, 1, q);
+    for (int i = 8; i < 20; i++) {
         f << s[i] << endl;
-
     }
-    f.close();
 }
+
+void loop(char j)
+{
+    for (int i = 0; i < 187500; i++) {
+        outF(j + to_string(i));
+    }
+}
+
 
 int main() 
 {
-    outF();
+    loop(100);
+    thread t1(loop, 97);
+    thread t2(loop, 98);
+    thread t3(loop, 99);
+    t1.join();
+    t2.join();
+    t3.join();
     return 0;
 }
-
